@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import base64
 import io
@@ -13,8 +13,8 @@ model = load_model('facial_shape_classifier.keras')
 # Class labels
 class_names = ['Heart', 'Oblong', 'Oval', 'Round', 'Square']
 
-app = Flask(__name__, static_url_path='/static')
-CORS(app, origins=["http://localhost:8000"])  # Allow frontend access
+app = Flask(__name__, static_url_path='/static', template_folder='templates')
+CORS(app)  # Allow frontend access
 
 # Hairstyle recommendations
 recommendations = {
@@ -104,7 +104,11 @@ def predict():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-        
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
 if __name__ == '__main__':
-    app.run(debug=True, port=8888)
+    app.run(host='0.0.0.0', port=10000)
 
