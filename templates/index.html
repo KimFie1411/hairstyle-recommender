@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Shape Identifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+		
+		.loader {
+		  border-top-color: transparent;
+		  border-radius: 9999px;
+		}
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 font-sans">
+	<div id="loading-spinner" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden">
+	  <div class="loader border-4 border-blue-500 border-t-transparent rounded-full w-16 h-16 animate-spin"></div>
+	</div>
+    <div class="bg-white p-8 rounded-lg shadow-xl text-center w-full max-w-md">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Facial Shape Identifier</h1>
+
+        <div class="mb-8">
+            <label for="imageUpload" class="block text-lg text-gray-700 mb-4">Upload a picture or take a new one:</label>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+                <div class="relative overflow-hidden inline-block">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300">
+                        Upload Image
+                    </button>
+                    <input type="file" id="imageUpload" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                </div>
+                <button id="camera-button" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300">
+                    Take Picture
+                </button>
+                <input type="file" id="cameraCapture" accept="image/*" capture="environment" class="hidden">
+            </div>
+            <img id="preview-image" src="#" alt="Image Preview" class="max-w-full max-h-80 border border-gray-300 mt-4 rounded-md mx-auto hidden object-contain">
+
+            <canvas id="processedCanvas" class="hidden border border-gray-300 mt-4 rounded-md mx-auto"></canvas>
+        </div>
+
+        <button id="identify-button" disabled class="bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg w-full text-xl transition-colors duration-300 cursor-not-allowed">
+            Identify facial shape
+        </button>
+		
+		<div id="result-box" class="hidden bg-white shadow-md p-4 rounded mt-4">output</div>
+    </div>
+
+    <script defer src="js/main.js"></script>
+</body>
+</html>
